@@ -1,0 +1,12 @@
+# name;speed;year
+Bike;20;2020
+Car;90;2018
+Bus;60;2015
+Scooter;25;2021
+Motorcycle;180;2019
+Truck;80;2012
+Train;160;2005
+Hyundai Solaris;245;2015
+Tenet T7;260;2025
+Ssang Young Kyron;180;2013
+BMW 320i xdrive;320;2022
