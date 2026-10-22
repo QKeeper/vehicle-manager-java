@@ -1,28 +1,20 @@
 @echo off
 chcp 65001 > nul
+cd /d "%~dp0"
 
-set "JDK_BIN=%USERPROFILE%\.jdks\openjdk-26.0.2.1\bin"
-if not exist "%JDK_BIN%\javac.exe" (
-    if defined JAVA_HOME (
-        set "JDK_BIN=%JAVA_HOME%\bin"
-    ) else (
-        set "JDK_BIN="
-    )
+set "JAVAC=javac"
+set "JAVA=java"
+if defined JAVA_HOME if exist "%JAVA_HOME%\bin\javac.exe" (
+    set "JAVAC=%JAVA_HOME%\bin\javac.exe"
+    set "JAVA=%JAVA_HOME%\bin\java.exe"
 )
 
-if defined JDK_BIN (
-    set "JAVAC=%JDK_BIN%\javac.exe"
-    set "JAVA=%JDK_BIN%\java.exe"
-) else (
-    set "JAVAC=javac"
-    set "JAVA=java"
-)
-
-"%JAVAC%" --enable-preview --release 26 -d out/production/netodology src/*.java
-if %errorlevel% neq 0 (
+if not exist "out\production\netodology" mkdir "out\production\netodology"
+"%JAVAC%" --release 17 -encoding UTF-8 -d "out\production\netodology" src\*.java
+if errorlevel 1 (
     echo [ERROR] Ошибка компиляции!
-    pause
-    exit /b %errorlevel%
+    exit /b 1
 )
 
-"%JAVA%" --enable-preview -cp out/production/netodology Main
+"%JAVA%" -cp "out\production\netodology" Main
+exit /b %errorlevel%
